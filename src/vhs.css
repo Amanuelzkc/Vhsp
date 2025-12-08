@@ -1,0 +1,91 @@
+/* Global Reset and Font */
+body {
+    margin: 0;
+    background-color: #050505; /* Near black */
+    color: #00FF00; /* Classic green glow */
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    overflow-x: hidden;
+}
+
+/* Base Text Styles */
+h1, h2, h3, p, a {
+    text-shadow: 0 0 5px #00ff00; /* Inner text glow */
+}
+a {
+    color: #00ff00;
+    text-decoration: none;
+    transition: color 0.1s;
+}
+a:hover {
+    color: #ff00ff; /* Subtle magenta shift */
+    text-shadow: 0 0 8px #ff00ff;
+}
+
+/* --- CRT Monitor Container --- */
+.crt-monitor {
+    position: relative;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Apply a slight curvature and color profile */
+    filter: brightness(1.1) contrast(1.2); 
+    /* The constant, subtle flicker */
+    animation: constant-flicker 4s infinite step-end;
+}
+
+/* The Scanlines Overlay (Crucial VHS look) */
+.scanlines {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    opacity: 0.15;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 1px,
+        #000 1px,
+        #000 2px 
+    );
+}
+
+/* --- Glitch Effect Classes (Toggled by React) --- */
+/* 1. The Sudden Color/Position Shift Glitch */
+.glitch-active {
+    filter: hue-rotate(5deg) contrast(1.5) blur(1px) drop-shadow(2px 0 0 #ff00ff);
+    transform: translateX(3px) skewX(2deg);
+}
+
+/* 2. Constant Subtle Flicker (slowly changes opacity) */
+@keyframes constant-flicker {
+    0%, 100% { opacity: 1; }
+    5% { opacity: 0.98; }
+    15% { opacity: 1.01; }
+    25% { opacity: 0.99; }
+    35% { opacity: 1; }
+}
+
+/* --- Data Log Styling --- */
+.category-filter button {
+    background: #003300;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 8px 15px;
+    margin-right: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.category-filter button:hover, .category-filter button.active {
+    background: #00ff00;
+    color: #050505;
+    box-shadow: 0 0 10px #00ff00;
+}
